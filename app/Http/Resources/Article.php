@@ -20,9 +20,10 @@ class Article extends JsonResource
             'user_name' => $this->user->name,
             'title'     => $this->title,
             'body'      => $this->body,
-            'image'     => $this->image,
+            'link'      => route('articles.show', $this->id),
+            'image'     => env('APP_URL'). '/images/' .$this->image,
             'images'    => $this->images,
-            'created_at'=> $this->created_at->format('d-m-Y'),
+            'created_at'=> $this->created_at->diffForHumans(),
             'updated_at'=> $this->updated_at->format('d-m-Y'),
         ];
     }
