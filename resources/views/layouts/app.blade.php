@@ -15,17 +15,17 @@
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/open-iconic/1.1.1/font/css/open-iconic-bootstrap.css">
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link rel="shortcut icon" type="image/png" href="{{ url('/') }}/dring.gif"/>
 </head>
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light navbar-laravel">
+        <nav class="navbar navbar-expand-md navbar-light fixed-top navbar-laravel">
             <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name') }}
-                </a>
+                <a class="navbar-brand" href="{{ url('/') }}">{{ config('app.name') }} <img width="40px" height="40px" src="{{ url('dring.gif') }}"></a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -53,7 +53,7 @@
                                 <navigation-component class="btn btn-outline-success my-2 my-sm-0 mr-3"></navigation-component>
                             </li> --}}
                             <li class="nav-item">
-                                <a href="{{ route('articles.create') }}" class="btn btn-outline-success my-2 my-sm-0 mr-3">Add Article</a>
+                                <a href="{{ route('articles.create') }}" class="btn btn-outline-success my-2 my-sm-0 mr-3"><span class="oi oi-plus"></span> Add Article</a>
                             </li>
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
@@ -78,7 +78,7 @@
             </div>
         </nav>
 
-        <main class="py-5">
+        <main class="py-5 mt-5">
             @yield('content')
         </main>
     </div>

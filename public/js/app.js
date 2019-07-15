@@ -1727,37 +1727,23 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       articles: {},
-      article: {
-        id: '',
-        title: '',
-        link: '',
-        image: '',
-        body: ''
-      },
       article_id: ''
     };
+  },
+  filters: {
+    uppercase: function uppercase(value) {
+      return value.toUpperCase();
+    }
   },
   mounted: function mounted() {
     this.getResults();
   },
-  // created() {
-  // 	// this.fetchArticles();
-  // 	axios.get('api/articles').then(res => {
-  // 		// console.log(res.data.data);
-  // 		this.articles = res.data.data;
-  // 	}).catch(error => console.log(error));
-  // },
-  computed: {// rows() {
-    //       	return this.articles.length
-    //     	}
+  computed: {
+    displayedPosts: function displayedPosts() {
+      return this.articles.data;
+    }
   },
   methods: {
-    // fetchArticles() {
-    // 	fetch('api/articles').then(response => response.json()).then(response => {
-    // 		console.log(response.data);
-    // 		this.articles = response.data;
-    // 	})
-    // }
     getResults: function getResults() {
       var _this = this;
 
@@ -38458,7 +38444,7 @@ var render = function() {
         _c(
           "div",
           { staticClass: "card-columns text-center" },
-          _vm._l(_vm.articles.data, function(article) {
+          _vm._l(_vm.displayedPosts, function(article) {
             return _c(
               "div",
               { staticClass: "card", attrs: { "bind:key": article.id } },
@@ -38471,7 +38457,7 @@ var render = function() {
                 _c("div", { staticClass: "card-body" }, [
                   _c("h5", { staticClass: "card-title" }, [
                     _c("a", { attrs: { href: article.link } }, [
-                      _vm._v(_vm._s(article.title))
+                      _vm._v(_vm._s(_vm._f("uppercase")(article.title)))
                     ])
                   ]),
                   _vm._v(" "),
@@ -38495,7 +38481,7 @@ var render = function() {
                         }
                       }
                     },
-                    [_vm._v("Delete")]
+                    [_c("span", { staticClass: "oi oi-trash" })]
                   )
                 ])
               ]
@@ -53414,14 +53400,7 @@ Vue.use(vue_router__WEBPACK_IMPORTED_MODULE_0__["default"]);
 var router = new vue_router__WEBPACK_IMPORTED_MODULE_0__["default"]({
   routes: _routes__WEBPACK_IMPORTED_MODULE_1__["routes"],
   mode: 'history'
-}); // Vue.mixin({
-//   	data: function() {
-//     	return {
-//       		url: 'http://restcrud.com'
-//     	}
-//   	}
-// });
-
+});
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application

@@ -19,7 +19,6 @@ class CreateArticlesTable extends Migration
             $table->string('title')->nullable();
             $table->text('body')->nullable();
             $table->text('image', 191)->nullable();
-            $table->json('images')->nullable();
             $table->timestamps();
         });
     }

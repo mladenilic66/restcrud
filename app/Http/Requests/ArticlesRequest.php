@@ -24,7 +24,7 @@ class ArticlesRequest extends FormRequest
     public function rules()
     {
         return [
-            'title'     =>  'required|unique:articles|max:50',
+            'title'     =>  'required|max:50',
             'body'      =>  'required',
             'image'     =>  'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ];
@@ -41,6 +41,7 @@ class ArticlesRequest extends FormRequest
         return [
             'title.required' => 'A title is required',
             'body.required'  => 'A description is required',
+            'image.max'  => 'Max image size: 2MB',
         ];
     }
 }

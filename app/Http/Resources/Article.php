@@ -21,7 +21,7 @@ class Article extends JsonResource
             'title'     => $this->title,
             'body'      => $this->body,
             'link'      => route('articles.show', $this->id),
-            'image'     => env('APP_URL'). '/images/' .$this->image,
+            'image'     => !is_null($this->image) ? env('APP_URL'). '/images/' .$this->image : 'https://via.placeholder.com/284x200',
             'images'    => $this->images,
             'created_at'=> $this->created_at->diffForHumans(),
             'updated_at'=> $this->updated_at->format('d-m-Y'),

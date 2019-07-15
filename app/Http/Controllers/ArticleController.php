@@ -40,40 +40,22 @@ class ArticleController extends Controller
      */
     public function store(ArticlesRequest $request)
     {
+        // create new article
         $article = new Article();
         $article->user_id   = Auth::user()->id;
         $article->title     = $request->input('title');
         $article->body      = $request->input('body');
 
+        // create image file
         if ($file = $request->file('image')) {
             $name = uniqid('threedium_', true).'.'.$file->getClientOriginalExtension();
             \Image::make($file)->save(public_path('images/').$name);
+            $article->image = $name;
         }
-
-        $article->image = $name;
 
         if ($article->save()) {
-            return redirect()->back()->with('success', 'Article added!');
+            return redirect()->back()->with('success', 'Article added successfully!');
         }
-
-        // $article = $request->isMethod('put') ? Article::findOrFail($request->article_id) : new Article;
-        // $article->id    = $request->input('article_id');
-        // $article->user_id = $request->input('user_id');
-        // $article->title = $request->input('title');
-        // $article->body = $request->input('body');
-
-        // if($request->get('image')){
-        //     $image = $request->get('image');
-        //     $name = uniqid('threedium_', true) .'.' . explode('/', explode(':', substr($image, 0, strpos($image, ';')))[1])[1];
-        //     \Image::make($request->get('image'))->save(public_path('images/').$name);
-        // }
-        //     $image= new FileUpload();
-        //     $image->image_name = $name;
-        //     $image->save();
-
-        // if ($article->save()) {
-        //     return new ArticleResource($article);
-        // }
     }
 
     /**
@@ -98,7 +80,8 @@ class ArticleController extends Controller
      */
     public function edit($id)
     {
-        //
+        $article = Article::findOrFail($id);
+        return view('articles.edit', compact('article'));
     }
 
     /**
@@ -108,9 +91,23 @@ class ArticleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(ArticlesRequest $request, $id)
     {
-        //
+        // update an article
+        $article = Article::findOrFail($id);
+        $article->title     = $request->input('title');
+        $article->body      = $request->input('body');
+
+        // create new image
+        if ($file = $request->file('image')) {
+            $name = uniqid('threedium_', true).'.'.$file->getClientOriginalExtension();
+            \Image::make($file)->save(public_path('images/').$name);
+            $article->image = $name;
+        }
+
+        if ($article->update()) {
+            return redirect()->back()->with('success', 'Article updated successfully!');
+        }
     }
 
     /**
@@ -122,7 +119,6 @@ class ArticleController extends Controller
     public function destroy($id)
     {
         $article = Article::findOrFail($id);
-        // delete article
         if ($article->delete()) {
             return new ArticleResource($article);
         }
